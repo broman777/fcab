@@ -1,0 +1,181 @@
+$sprite: (
+	back-arrow_hover: (
+		offset-x: 0px,
+		offset-y: -45px,
+		width: 16px,
+		height: 16px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	back-arrow: (
+		offset-x: -18px,
+		offset-y: -63px,
+		width: 16px,
+		height: 16px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	date: (
+		offset-x: -18px,
+		offset-y: -45px,
+		width: 16px,
+		height: 16px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	edit: (
+		offset-x: -36px,
+		offset-y: -45px,
+		width: 16px,
+		height: 16px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	gift: (
+		offset-x: -54px,
+		offset-y: -45px,
+		width: 16px,
+		height: 16px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	logo: (
+		offset-x: 0px,
+		offset-y: 0px,
+		width: 105px,
+		height: 43px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	multiselect-arrow_error: (
+		offset-x: -84px,
+		offset-y: -63px,
+		width: 10px,
+		height: 7px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	multiselect-arrow_hover: (
+		offset-x: 0px,
+		offset-y: -81px,
+		width: 10px,
+		height: 7px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	multiselect-arrow_static: (
+		offset-x: -72px,
+		offset-y: -63px,
+		width: 10px,
+		height: 7px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	show-hide-ico_active: (
+		offset-x: -36px,
+		offset-y: -63px,
+		width: 16px,
+		height: 11px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	show-hide-ico: (
+		offset-x: -54px,
+		offset-y: -63px,
+		width: 16px,
+		height: 11px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	soc-fb: (
+		offset-x: -90px,
+		offset-y: -45px,
+		width: 8px,
+		height: 16px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	soc-vk: (
+		offset-x: 0px,
+		offset-y: -63px,
+		width: 16px,
+		height: 16px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+	toggle: (
+		offset-x: -72px,
+		offset-y: -45px,
+		width: 16px,
+		height: 16px,
+		total-width: 105px,
+		total-height: 88px,
+		image: '~assets/img/spr.png'
+	),
+);
+
+
+@mixin sprite-size($image) {
+	background-size: map-get(map-get($sprite, $image), 'total-width') map-get(map-get($sprite, $image), 'total-height');
+}
+
+@mixin sprite-width($image) {
+	width: map-get(map-get($sprite, $image), 'width');
+}
+
+@mixin sprite-height($image) {
+	height: map-get(map-get($sprite, $image), 'height');
+}
+
+@mixin sprite-position($image) {
+	background-position: map-get(map-get($sprite, $image), 'offset-x') map-get(map-get($sprite, $image), 'offset-y');
+}
+
+@mixin sprite-image($image) {
+	background-image: url(map-get(map-get($sprite, $image), 'image'));
+}
+
+@mixin sprite-image-retina($image) {
+	$image-path: map-get(map-get($sprite, $image), 'image');
+	$image-path-retina: str-slice($image-path, 1, str-index($image-path, '.png') - 1) + '@2x.png';
+
+	background-image: url($image-path-retina);
+}
+
+@mixin sprite($image, $size: true) {
+	@include sprite-image($image);
+	@include sprite-position($image);
+	background-repeat: no-repeat;
+
+	@if $size {
+		@include sprite-width($image);
+		@include sprite-height($image);
+	}
+
+	@media
+		only screen and (-webkit-min-device-pixel-ratio: 2),
+		only screen and (   min--moz-device-pixel-ratio: 2),
+		only screen and (     -o-min-device-pixel-ratio: 2/1),
+		only screen and (        min-device-pixel-ratio: 2),
+		only screen and (                min-resolution: 192dpi),
+		only screen and (                min-resolution: 2dppx) {
+
+		@include sprite-size($image);
+		@include sprite-image-retina($image);
+
+	}
+}
+
